@@ -214,11 +214,11 @@
             position: relative;
         }
 
-        /* === NEW BACKGROUND VIDEO ENGINE STYLES === */
+        /* === EXPERIMENTAL CINEMATIC VIDEO BACKGROUND STYLES === */
         .hero-video-container {
             position: relative;
             width: 100vw;
-            height: 100vh; /* Takes up full initial screen height like Nirvana */
+            height: 100vh;
             overflow: hidden;
             background-color: #000;
         }
@@ -228,11 +228,12 @@
             top: 50%;
             left: 50%;
             width: 100vw;
-            height: 56.25vw; /* Fixed 16:9 Aspect Calculation */
+            height: 56.25vw; /* Fixed 16:9 Aspect Limit */
             min-height: 100vh;
-            min-width: 177.77vh; /* Fixed 16:9 Scale Fallback */
-            transform: translate(-50%, -50%);
-            pointer-events: none; /* Disables clicking or pausing the video frame directly */
+            min-width: 177.77vh;
+            /* Scale up slightly to 1.15 to crop out standard bottom captions */
+            transform: translate(-50%, -50%) scale(1.15);
+            pointer-events: none;
             z-index: 1;
         }
 
@@ -252,13 +253,14 @@
             justify-content: center;
             align-items: center;
             z-index: 2;
-            background: rgba(0, 0, 0, 0.25); /* Subtle dimming overlay so the logo text is highly readable */
+            background: rgba(0, 0, 0, 0.15); /* Soft dark layer to make logo content legible */
         }
 
         .logo-overlay img {
-            max-width: 750px; /* Adjust layout sizing threshold rules here */
+            max-width: 750px;
             width: 85%;
             height: auto;
+            display: block;
         }
 
         /* Demonic Pulse Animation */
@@ -384,10 +386,10 @@
                 height: 26px; 
             }
             .title-section {
-                padding-top: 0; /* Adjusted to keep video hero clean on mobile loading states */
+                padding-top: 0;
             }
             .hero-video-container {
-                height: 60vh; /* Optional shorter viewport sizing adjustment rules for mobile displays */
+                height: 56.25vw; /* Resizes to structural video bounds nicely on mobile devices */
             }
             .business-links {
                 gap: 15px;
@@ -462,19 +464,16 @@
         <main id="container">
             
             <section class="title-section">
-                <!-- Video Backdrop Container Layer -->
                 <div class="hero-video-container">
                     <div class="video-background">
-                        <iframe src="https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1&mute=1&loop=1&playlist=VbFZFto8Naw&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1" 
+                        <iframe src="https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1&mute=1&loop=1&playlist=VbFZFto8Naw&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=3&playsinline=1" 
                                 allow="autoplay; encrypted-media" 
-                                title="Hamachi the Psychotic Killer - Cinematic Background Loop">
+                                title="Hamachi the Psychotic Killer Website Cinematic Hero Trailer">
                         </iframe>
                     </div>
                     
-                    <!-- Centered Isolated Logo Asset Layer -->
                     <div class="logo-overlay">
-                        <!-- !!! ATTENTION: Replace the placeholder image link below with your isolated transparent logo PNG file !!! -->
-                        <img src="https://gavinoriley.github.io/assets/ScreenshotHomePage.png" alt="Hamachi the Psychotic Killer game title logo">
+                        <img src="https://gavinoriley.github.io/assets/ScreenHomePageOver.png" alt="Hamachi the Psychotic Killer Game Logo Overlay">
                     </div>
                 </div>
                 
