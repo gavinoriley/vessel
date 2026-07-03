@@ -62,8 +62,8 @@
         /* === HAMBURGER MENU BUTTON === */
         .menu-toggle {
             position: fixed;
-            top: 25px;
-            left: 25px;
+            top: 40px; /* Moved down for premium breathing room mimicking the Obsession page layout */
+            left: 40px; /* Moved inward for premium breathing room mimicking the Obsession page layout */
             width: 28px;
             height: 18px;
             background: none;
@@ -71,6 +71,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            align-items: flex-start; /* Aligns the shorter middle line to the left edge */
             z-index: 200;
             mix-blend-mode: difference;
         }
@@ -81,6 +82,10 @@
             background-color: #fff;
             border-radius: 1px;
             transition: all 0.3s ease-in-out;
+        }
+        /* Custom line-length variance: Top Long, Middle Short, Bottom Long */
+        .menu-toggle span:nth-child(2) {
+            width: 70%;
         }
         /* Hamburger Animation to 'X' */
         .menu-toggle.open span:nth-child(1) {
@@ -140,8 +145,8 @@
         /* === FIRST SCREEN SOCIAL DOCK === */
         .hero-socials {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 40px; /* Symmetrically balanced with the new menu-toggle layout */
+            right: 40px; /* Symmetrically balanced with the new menu-toggle layout */
             display: flex;
             gap: 20px;
             z-index: 110;
@@ -153,13 +158,13 @@
             text-decoration: none;
         }
         .hero-socials img {
-            height: 25px;
+            height: 32px; /* Increased from 25px to be slightly larger and more readable */
             width: auto;
             display: block;
-            opacity: 1; /* Fixes immediate layout-swap on mouse entry */
-            transition: opacity 0.3s ease-in-out; /* Symmetrical fading curve both ways */
-            will-change: opacity; /* Forces browser to pre-composite layer, removing the hover snap */
-            transform: translateZ(0); /* Triggers hardware acceleration to bypass custom cursor lag */
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+            will-change: opacity; 
+            transform: translateZ(0); 
         }
         .hero-socials a:hover img {
             opacity: 0.5;
@@ -270,8 +275,8 @@
         /* === RESPONSIVE STYLING === */
         @media screen and (max-width: 768px) {
             .menu-toggle {
-                top: 20px;
-                left: 20px;
+                top: 30px; /* Responsive safe space */
+                left: 30px; /* Responsive safe space */
                 width: 24px;
                 height: 16px;
             }
@@ -285,12 +290,12 @@
                 font-size: 26px;
             }
             .hero-socials {
-                top: 20px;
-                right: 20px;
+                top: 30px;
+                right: 30px;
                 gap: 16px;
             }
             .hero-socials img {
-                height: 20px;
+                height: 26px; /* Scaled slightly up for mobile view balance */
             }
             .title-section {
                 padding-top: 60px;
@@ -348,13 +353,13 @@
     </nav>
 
     <div class="hero-socials">
-        <a href="https://x.com/imgavinoriley" target="_blank" aria-label="Follow Gavin O'Riley on X">
+        <a href="https://x.com/imgavinoriley" target="_blank" rel="noopener noreferrer" aria-label="Follow Gavin O'Riley on X">
             <img src="https://gavinoriley.github.io/assets/whitex.png" alt="X Icon">
         </a>
-        <a href="https://www.youtube.com/@hamachithepsychotickiller" target="_blank" aria-label="Hamachi the Psychotic Killer YouTube Channel">
+        <a href="https://www.youtube.com/@hamachithepsychotickiller" target="_blank" rel="noopener noreferrer" aria-label="Hamachi the Psychotic Killer YouTube Channel">
             <img src="https://gavinoriley.github.io/assets/whiteyoutube.png" alt="YouTube Icon">
         </a>
-        <a href="https://www.tiktok.com/@YOUR_HANDLES_HERE" target="_blank" aria-label="Hamachi the Psychotic Killer TikTok Profile">
+        <a href="https://www.tiktok.com/@hamachithepsychokiller" target="_blank" rel="noopener noreferrer" aria-label="Hamachi the Psychotic Killer TikTok Profile">
             <img src="https://gavinoriley.github.io/assets/whitetiktok.png" alt="TikTok Icon">
         </a>
     </div>
