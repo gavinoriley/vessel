@@ -228,7 +228,6 @@
             background: rgba(0, 0, 0, 0.25); 
         }
 
-        /* New structural block layout to position elements natively beneath the header */
         .hero-content-wrapper {
             display: flex;
             flex-direction: column;
@@ -244,7 +243,6 @@
             display: block;
         }
 
-        /* Pill Buttons Core Engine Flexbox Layout */
         .hero-action-row {
             display: flex;
             justify-content: center;
@@ -253,7 +251,6 @@
             width: 100%;
         }
 
-        /* Premium Pill Outline Styling Rules */
         .pill-btn {
             display: inline-flex;
             align-items: center;
@@ -274,6 +271,66 @@
             background-color: rgba(204, 17, 17, 0.2);
             border-color: #ff3333;
             transform: translateY(-1px);
+        }
+
+        /* === CINEMATIC MEDIUM MODAL BOX === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 3000; /* Stays above your navigation layers */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            position: relative;
+            width: 85%;
+            max-width: 850px; /* Perfectly scales a medium-sized frame */
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            border: 2px solid #cc1111;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(204, 17, 17, 0.25);
+            overflow: visible;
+        }
+
+        .modal-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: -45px;
+            right: -2px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 32px;
+            line-height: 1;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: #ff3333;
         }
 
         @keyframes demonic-glow-pulse {
@@ -377,7 +434,6 @@
             .title-section { padding-top: 0; }
             .hero-video-container { height: 60vh; }
             
-            /* Stacks the action row cleanly on smaller mobile viewports */
             .hero-action-row {
                 flex-direction: column;
                 gap: 12px;
@@ -386,6 +442,12 @@
                 width: 80%;
                 font-size: 16px;
                 padding: 8px 20px;
+            }
+
+            .modal-close-btn {
+                top: -38px;
+                right: 4px;
+                font-size: 28px;
             }
 
             .business-links { gap: 15px; flex-wrap: wrap; }
@@ -449,6 +511,13 @@
         </a>
     </div>
 
+    <div class="modal-overlay" id="trailerLightbox" onclick="closeTrailerModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeTrailerModal(event)" aria-label="Close video pop-up">&times;</button>
+            <iframe id="modalVideoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <div id="wrapper">
         <main id="container">
             
@@ -461,15 +530,12 @@
                         </video>
                     </div>
                     
-                    <!-- Centered Title Layer with Embedded CTA Actions -->
                     <div class="logo-overlay">
                         <div class="hero-content-wrapper">
-                            <!-- New Logo Graphic Asset Loaded Directly Here -->
                             <img src="https://gavinoriley.github.io/assets/ScreenHomePageOver.png" alt="Hamachi the Psychotic Killer game title logo">
                             
-                            <!-- Balanced Two-Pill Alignment Block -->
                             <div class="hero-action-row">
-                                <a href="#" class="pill-btn" onclick="openTrailerWindow(event)">Watch Trailer</a>
+                                <a href="#" class="pill-btn" onclick="openTrailerModal(event)">Watch Trailer</a>
                                 <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer" class="pill-btn">Buy Game</a>
                             </div>
                         </div>
@@ -509,8 +575,6 @@
                     <img src="https://gavinoriley.github.io/assets/FinalClipBannerclickme.png" alt="Hamachi the Psychotic Killer">
                 </a>
             </section>
-            
-            <!-- Note: Embedded Video Player Section has been completely removed from this point -->
             
             <section class="roadblock-section">
                 <img src="https://gavinoriley.github.io/assets/3BLOCkRESTHAMACHI.png" alt="Roadblock and gameplay features for Hamachi the Psychotic Killer">
@@ -577,20 +641,31 @@
             });
         });
 
-        // Dedicated Native Window Launcher for Trailer Window Popup
-        function openTrailerWindow(event) {
+        // MODAL BOX LOGIC FOR IN-SITE PLAYBACK
+        const trailerLightbox = document.getElementById('trailerLightbox');
+        const modalVideoIframe = document.getElementById('modalVideoIframe');
+        
+        // Formatted with YouTube's secure embed configuration + auto-play parameter flags
+        const targetEmbedSource = "https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1&modestbranding=1&rel=0";
+
+        function openTrailerModal(event) {
             event.preventDefault();
-            const width = 1280;
-            const height = 720;
-            // Center the popup directly on the viewer's screen coordinate grid
-            const left = (screen.width - width) / 2;
-            const top = (screen.height - height) / 2;
+            modalVideoIframe.src = targetEmbedSource;
+            trailerLightbox.classList.add('open');
             
-            window.open(
-                "https://www.youtube.com/watch?v=VbFZFto8Naw", 
-                "HamachiTrailerWindow", 
-                `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
-            );
+            // Pauses smooth tracking behavior so user cannot drift below viewport layers while viewing
+            if (typeof lenis !== 'undefined') lenis.stop();
+        }
+
+        function closeTrailerModal(event) {
+            if (event) event.preventDefault();
+            trailerLightbox.classList.remove('open');
+            
+            // Completely clears out frame allocation source instantly terminating background audio loops
+            modalVideoIframe.src = "";
+            
+            // Returns standard inertia tracking calculations smoothly back to page view logic
+            if (typeof lenis !== 'undefined') lenis.start();
         }
     </script>
 </body>
