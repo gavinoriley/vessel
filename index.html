@@ -62,8 +62,8 @@
         /* === HAMBURGER MENU BUTTON === */
         .menu-toggle {
             position: fixed;
-            top: 40px; /* Moved down for premium breathing room mimicking the Obsession page layout */
-            left: 60px; /* Moved inward for premium breathing room mimicking the Obsession page layout */
+            top: 40px; 
+            left: 60px; /* Kept your precise manual tracking placement */
             width: 28px;
             height: 18px;
             background: none;
@@ -71,9 +71,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: flex-start; /* Aligns the shorter middle line to the left edge */
+            align-items: center; /* Symmetrically centers the shorter middle line */
             z-index: 200;
-            mix-blend-mode: difference;
         }
         .menu-toggle span {
             display: block;
@@ -82,6 +81,8 @@
             background-color: #fff;
             border-radius: 1px;
             transition: all 0.3s ease-in-out;
+            /* Deep anti-glare drop outline to keep the white bars visible against any image asset color */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9);
         }
         /* Custom line-length variance: Top Long, Middle Short, Bottom Long */
         .menu-toggle span:nth-child(2) {
@@ -145,8 +146,8 @@
         /* === FIRST SCREEN SOCIAL DOCK === */
         .hero-socials {
             position: absolute;
-            top: 40px; /* Symmetrically balanced with the new menu-toggle layout */
-            right: 40px; /* Symmetrically balanced with the new menu-toggle layout */
+            top: 40px; 
+            right: 40px; 
             display: flex;
             gap: 20px;
             z-index: 110;
@@ -158,7 +159,7 @@
             text-decoration: none;
         }
         .hero-socials img {
-            height: 32px; /* Increased from 25px to be slightly larger and more readable */
+            height: 32px; 
             width: auto;
             display: block;
             opacity: 1;
@@ -275,8 +276,8 @@
         /* === RESPONSIVE STYLING === */
         @media screen and (max-width: 768px) {
             .menu-toggle {
-                top: 30px; /* Responsive safe space */
-                left: 30px; /* Responsive safe space */
+                top: 30px; 
+                left: 30px; 
                 width: 24px;
                 height: 16px;
             }
@@ -295,7 +296,7 @@
                 gap: 16px;
             }
             .hero-socials img {
-                height: 26px; /* Scaled slightly up for mobile view balance */
+                height: 26px; 
             }
             .title-section {
                 padding-top: 60px;
