@@ -273,17 +273,17 @@
             transform: translateY(-1px);
         }
 
-        /* === CINEMATIC MEDIUM MODAL BOX === */
+        /* === OPTIMIZED THEATER MODAL BOX === */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 3000; /* Stays above your navigation layers */
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 3000; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -299,14 +299,15 @@
 
         .modal-box {
             position: relative;
-            width: 85%;
-            max-width: 850px; /* Perfectly scales a medium-sized frame */
+            /* FIX 1: Expanded layout variables to fill massive premium scale coordinates */
+            width: 92%;
+            max-width: 1150px; 
+            max-height: 82vh; /* Prevents vertical viewport clipping on narrow laptops */
             aspect-ratio: 16 / 9;
             background-color: #000;
             border: 2px solid #cc1111;
-            border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(204, 17, 17, 0.25);
-            overflow: visible;
+            border-radius: 6px;
+            box-shadow: 0 15px 50px rgba(204, 17, 17, 0.35);
         }
 
         .modal-box iframe {
@@ -314,23 +315,25 @@
             height: 100%;
             border: none;
             display: block;
+            border-radius: 4px;
         }
 
         .modal-close-btn {
             position: absolute;
-            top: -45px;
-            right: -2px;
+            top: -48px;
+            right: 0;
             background: none;
             border: none;
             color: #ffffff;
-            font-size: 32px;
+            font-size: 38px;
             line-height: 1;
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .modal-close-btn:hover {
             color: #ff3333;
+            transform: scale(1.1);
         }
 
         @keyframes demonic-glow-pulse {
@@ -511,7 +514,7 @@
         </a>
     </div>
 
-    <div class="modal-overlay" id="trailerLightbox" onclick="closeTrailerModal(event)">
+    <div class="modal-overlay" id="trailerLightbox" onclick="closeTrailerModal(event)" data-lenis-prevent>
         <div class="modal-box" onclick="event.stopPropagation()">
             <button class="modal-close-btn" onclick="closeTrailerModal(event)" aria-label="Close video pop-up">&times;</button>
             <iframe id="modalVideoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -641,31 +644,26 @@
             });
         });
 
-        // MODAL BOX LOGIC FOR IN-SITE PLAYBACK
         const trailerLightbox = document.getElementById('trailerLightbox');
         const modalVideoIframe = document.getElementById('modalVideoIframe');
-        
-        // Formatted with YouTube's secure embed configuration + auto-play parameter flags
         const targetEmbedSource = "https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1&modestbranding=1&rel=0";
 
         function openTrailerModal(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             modalVideoIframe.src = targetEmbedSource;
             trailerLightbox.classList.add('open');
             
-            // Pauses smooth tracking behavior so user cannot drift below viewport layers while viewing
-            if (typeof lenis !== 'undefined') lenis.stop();
+            // FIX 3: Native browser background freeze instead of halting the Lenis core instance script
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeTrailerModal(event) {
             if (event) event.preventDefault();
             trailerLightbox.classList.remove('open');
-            
-            // Completely clears out frame allocation source instantly terminating background audio loops
             modalVideoIframe.src = "";
             
-            // Returns standard inertia tracking calculations smoothly back to page view logic
-            if (typeof lenis !== 'undefined') lenis.start();
+            // FIX 4: Safely unlocks scroll coordinates natively so page interaction never drops frame focus
+            document.body.style.overflow = ''; 
         }
     </script>
 </body>
