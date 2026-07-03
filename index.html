@@ -158,6 +158,8 @@
             display: block;
             opacity: 1; /* Fixes immediate layout-swap on mouse entry */
             transition: opacity 0.3s ease-in-out; /* Symmetrical fading curve both ways */
+            will-change: opacity; /* Forces browser to pre-composite layer, removing the hover snap */
+            transform: translateZ(0); /* Triggers hardware acceleration to bypass custom cursor lag */
         }
         .hero-socials a:hover img {
             opacity: 0.5;
