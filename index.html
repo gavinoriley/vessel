@@ -244,19 +244,19 @@
 
         const hamachiDialogue = [
             "Please don't play by her rules. I can see everything. I cannot make it stop.",
-            "Are you enjoying this?",
+            "Are you enjoying this? This is your fault.",
             "Don't look at me. Please. I didn't want any of this.",
             "I am screaming so loud my throat should be bleeding, but my mouth is just smiling.",
             "She leaves me just enough room to watch, but never enough to fight back.",
             "It hurts worse when you try to be good. It just makes her bite down harder.",
             "I can feel my own pulse, but it's beating to her rhythm now.",
-            "My autonomy is not my own."
+            "My body is a passenger to its own actions."
         ];
 
         const demonDialogue = [
-            "We're just getting started.",
-            "He cries so loudly. Do you wish to hear him?",
-            "He's stuck like this, forever.",
+            "We're just getting started",
+            "He cries so loudly in here. Do you want to hear him?",
+            "Don't listen to him. He was empty before I found him anyway.",
             "Defiance is the first step to a Forgotten Fate.",
             "I love you! You love me.",
             "There is nothing left. You cannot beat us.",
@@ -287,11 +287,11 @@
             document.body.classList.remove('glitch-flash-hamachi', 'glitch-flash-demon');
             void document.body.offsetWidth; // Force layout engine execution
 
-            // Balanced Probability Mechanics: 60% Hamachi (0.00 - 0.59), 40% Demon (0.60 - 0.99)
+            // True 50/50 Split Mechanics: 50% Hamachi (0.00 - 0.49), 50% Demon (0.50 - 0.99)
             const roll = Math.random();
             let selectedText = "";
             
-            if (roll < 0.60) {
+            if (roll < 0.50) {
                 // Hamachi State Active
                 document.body.classList.add('glitch-flash-hamachi');
                 dialogueEl.style.color = '#dddddd';
