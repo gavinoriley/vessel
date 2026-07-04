@@ -326,31 +326,31 @@
             .metadata-row strong { width: 110px; flex-shrink: 0; }
         }
 
-        /* Custom Mood Music Embed Styling - Far Right Alignment */
+        /* Custom Mood Music Embed Styling - Expanded Far Right Layout */
         .mood-music-sidebar {
             position: fixed;
             right: 40px;
             top: 50%;
             transform: translateY(-50%);
-            width: 300px;
+            width: 450px; /* Expanded from 300px to maximize visibility */
             z-index: 100;
             background: rgba(5, 5, 5, 0.85);
-            padding: 16px;
+            padding: 24px;
             border: 1px solid #222;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
             text-align: center;
         }
         .mood-music-caption {
-            font-size: 16px;
-            line-height: 1.4;
+            font-size: 20px; /* Enlarged for easier reading */
+            line-height: 1.5;
             color: #cc1111;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
         }
         .mood-music-video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Fixed 16:9 widescreen window wrapper */
+            padding-bottom: 56.25%; /* Maintains structural 16:9 widescreen scaling */
             height: 0;
         }
         .mood-music-video-wrapper iframe {
@@ -362,8 +362,8 @@
             border: 0;
         }
 
-        /* Shift player out of the way dynamically on narrower viewports */
-        @media screen and (max-width: 1250px) {
+        /* Responsive safety breakpoint adjusted to handle the wider side block layout */
+        @media screen and (max-width: 1440px) {
             .mood-music-sidebar {
                 position: absolute;
                 top: auto;
@@ -371,7 +371,7 @@
                 right: 50%;
                 transform: translateX(50%);
                 width: 90%;
-                max-width: 360px;
+                max-width: 500px;
                 background: rgba(0, 0, 0, 0.95);
             }
         }
