@@ -4,7 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>??? - Hamachi the Psychotic Killer</title>
-    <link rel="icon" type="image/x-icon" href="/assets/hamafavi.ico">
+    
+    <!-- Optimized SEO, Open Graph & Discovery Meta Engine Tags -->
+    <meta name="description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta name="keywords" content="Hamachi the Psychotic Killer, video game, indie game, action game, 2d game, platformer">
+    <meta property="og:title" content="??? - Hamachi the Psychotic Killer">
+    <meta property="og:description" content="HAMACHI THE PSYYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta property="og:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
+    <meta property="og:url" content="https://hamachithepsychotickiller.com/vessel/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hamachi the Psychotic Killer">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="??? - Hamachi the Psychotic Killer">
+    <meta name="twitter:description" content="HAMACHI THE PSYYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta name="twitter:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
+    <meta name="twitter:site" content="@imgavinoriley">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://hamachithepsychotickiller.com/vessel/">
+    <link rel="icon" type="image/x-icon" href="https://gavinoriley.github.io/assets/hamafavi.ico">
+    <link rel="preload" href="/assets/FSEX300.woff2" as="font" type="font/woff2" crossorigin>
     
     <style>
         @font-face {
@@ -22,7 +42,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'FSEX300', Arial, sans-serif;
-            cursor: url('/assets/sprCursor_3.png'), auto;
+            cursor: url('https://gavinoriley.github.io/assets/sprCursor_3.png'), auto;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -43,7 +63,7 @@
         .menu-toggle {
             position: fixed;
             top: 40px; 
-            left: 60px; 
+            left: 60px; \
             width: 28px;
             height: 18px;
             background: none;
@@ -61,20 +81,12 @@
             background-color: #fff;
             border-radius: 1px;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9);
         }
-        .menu-toggle span:nth-child(2) {
-            width: 70%;
-        }
-        .menu-toggle.open span:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        .menu-toggle.open span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.open span:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
+        .menu-toggle span:nth-child(2) { width: 70%; }
+        .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* Fullscreen Navigation Overlay */
         .nav-overlay {
@@ -83,10 +95,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0, 0, 0, 0.96);
             backdrop-filter: blur(10px);
             z-index: 150;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 0;
@@ -98,12 +111,23 @@
             visibility: visible;
         }
         
+        /* Layout Wrappers inside Menu Overlay */
         .nav-links-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 24px;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            transform: scale(1);
         }
+        .nav-links-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: scale(0.95);
+            position: absolute;
+        }
+
         .nav-overlay a {
             color: #fff;
             text-decoration: none;
@@ -119,9 +143,93 @@
             animation: demonic-glow-pulse 1.8s ease-in-out infinite;
         }
 
+        /* SYNOPSIS DIGEST OVERLAY STYLES */
+        .synopsis-container {
+            display: flex;
+            width: 90%;
+            max-width: 1100px;
+            gap: 60px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+            position: absolute;
+        }
+        .synopsis-container.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            position: relative;
+            transform: translateY(0);
+        }
+        .synopsis-left {
+            flex: 1.4;
+            text-align: left;
+        }
+        .synopsis-desc {
+            font-size: 21px;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+        }
+        .synopsis-features-title {
+            font-size: 18px;
+            color: #cc1111;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+        .synopsis-features-list {
+            list-style: none;
+        }
+        .synopsis-features-list li {
+            font-size: 17px;
+            line-height: 1.5;
+            color: #cccccc;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+            user-select: none;
+        }
+        .synopsis-features-list li::before {
+            content: "•";
+            color: #cc1111;
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+            line-height: 1;
+        }
+        .synopsis-right {
+            flex: 0.8;
+            border-left: 1px solid #222;
+            padding-left: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+            text-align: left;
+        }
+        .metadata-row {
+            display: flex;
+            align-items: flex-start;
+            font-size: 18px;
+            line-height: 1.4;
+            color: #bbbbbb;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        .metadata-row strong {
+            color: #ff4444;
+            display: inline-block;
+            width: 140px;
+            flex-shrink: 0;
+        }
+
         @keyframes demonic-glow-pulse {
             0%, 100% { text-shadow: 0 0 8px #ff4444, 0 0 18px #ff4444, 0 0 35px #ff0000; }
-            50% { text-shadow: 0 0 20px #ff4444, 0 0 40px #ff4444, 0 0 70px #ff0000; }
+            50% { text-shadow: 0 0 20px #ff4444, 0 0 40px #ff4444, 0 0 70px #ff0000, 0 0 100px #ff8866; }
         }
 
         /* Core Stage Elements */
@@ -189,14 +297,59 @@
         /* Responsive UI Rules */
         @media screen and (max-width: 768px) {
             .menu-toggle { top: 30px; left: 30px; width: 24px; height: 16px; }
+            .menu-toggle span { height: 2px; }
             .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
             .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             .nav-overlay a { font-size: 26px; }
             
             .graphic-container { height: 280px; }
             .dialogue-box { font-size: 20px; min-height: 80px; }
+
+            .synopsis-container.active {
+                flex-direction: column;
+                gap: 24px;
+                width: 88%;
+                max-height: 78vh;
+                overflow-y: auto;
+                padding-right: 8px;
+            }
+            .synopsis-desc { font-size: 17px; margin-bottom: 16px; }
+            .synopsis-features-list li { font-size: 15px; margin-bottom: 8px; }
+            .synopsis-right {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid #222;
+                padding-top: 20px;
+                gap: 12px;
+            }
+            .metadata-row { font-size: 15px; white-space: normal; }
+            .metadata-row strong { width: 110px; flex-shrink: 0; }
         }
     </style>
+    
+    <!-- JSON-LD Structured Data for Enhanced Discovery Indexing -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Hamachi the Psychotic Killer",
+      "description": "HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.",
+      "image": "https://gavinoriley.github.io/assets/ScreenshotHomePage.png",
+      "url": "https://hamachithepsychotickiller.com",
+      "genre": "Action, Platformer, Indie",
+      "gamePlatform": "PC",
+      "publisher": {
+        "@type": "Person",
+        "name": "Gavin ORiley"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 <body>
 
@@ -207,14 +360,43 @@
     </button>
 
     <nav class="nav-overlay" id="mainNavOverlay">
-        <div class="nav-links-wrapper">
-            <a href="https://hamachithepsychotickiller.com">HOME</a>
-            <a href="https://hamachithepsychotickiller.com/about/">GAME INFO</a>
-            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank">PLAY ONLINE DEMO</a>
-            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank">BUY GAME</a>
-            <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link">DEV ROOM</a>
-            <a href="mailto:img.oriley@gmail.com?subject=Contact%20from%20Hamachi%20the%20Psychotic%20Killer%20page">CONTACT</a>
+        
+        <!-- Reordered, standard links wrapper -->
+        <div class="nav-links-wrapper" id="menuLinksWrapper">
+            <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">GAME INFO</a>
+            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link">PLAY ONLINE DEMO</a>
+            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">BUY GAME</a>
+            <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link menu-link">DEV ROOM</a>
+            <a href="mailto:img.oriley@gmail.com?subject=Contact%20from%20Hamachi%20the%20Psychotic%20Killer%20page" class="menu-link">CONTACT</a>
+            <a href="#" class="menu-link" id="synopsisTriggerBtn">SYNOPSIS</a>
+            <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/cbeecc8fd965c68b6d64b82a593dafd5da4b0412/2hamachi-the-psychotic-killer-manual.pdf?t=1746692821" target="_blank" class="menu-link" style="font-size: 20px; color: #888;">GAME MANUAL</a>
         </div>
+
+        <!-- Integrated Synopsis Content Layer -->
+        <div class="synopsis-container" id="synopsisContentPanel">
+            <div class="synopsis-left">
+                <p class="synopsis-desc">In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity, an evil fiend who intends to use him as a vessel to conquer the world through mass murder.</p>
+                <h3 class="synopsis-features-title">features:</h3>
+                <ul class="synopsis-features-list">
+                    <li>Play as the villain: Choose to kill, spare, or ignore every civilian.</li>
+                    <li>Three distinct routes: Pacifist, Neutral, and Genocide, each with its own ending.</li>
+                    <li>Defeat or pacify demonic bosses, pacified bosses will join your side.</li>
+                    <li>Journey through 8 visually distinct worlds built with original pixel art.</li>
+                    <li>Chainsaw power-up grants temporary invincibility and destroys any being you touch.</li>
+                    <li>Collect souls from dead civilians or sushi dropped by Penelope Pom Pom Pink to restore health.</li>
+                    <li>Your crimes will not go unnoticed by the authorities.</li>
+                </ul>
+            </div>
+            <div class="synopsis-right">
+                <div class="metadata-row"><strong>TITLE:</strong> Hamachi the Psychotic Killer</div>
+                <div class="metadata-row"><strong>GENRE:</strong> Action, Indie</div>
+                <div class="metadata-row"><strong>DEVELOPER:</strong> gavinoriley</div>
+                <div class="metadata-row"><strong>PUBLISHER:</strong> gavinoriley</div>
+                <div class="metadata-row"><strong>RELEASE DATE:</strong> Feb 27, 2026</div>
+                <div class="metadata-row"><strong>PLATFORM:</strong> Windows/Mac</div>
+            </div>
+        </div>
+
     </nav>
 
     <main class="stage">
@@ -225,17 +407,53 @@
     </main>
 
     <script>
-        // Menu System Implementation
+        // Menu & Overlay Control Interface
         const menuToggle = document.querySelector('.menu-toggle');
         const navOverlay = document.getElementById('mainNavOverlay');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        const menuLinksWrapper = document.getElementById('menuLinksWrapper');
+        const synopsisTriggerBtn = document.getElementById('synopsisTriggerBtn');
+        const synopsisContentPanel = document.getElementById('synopsisContentPanel');
 
         function toggleMenu() {
+            const isClosing = menuToggle.classList.contains('open');
             menuToggle.classList.toggle('open');
             navOverlay.classList.toggle('open');
+
+            if (isClosing) {
+                setTimeout(() => {
+                    menuLinksWrapper.classList.remove('hidden');
+                    synopsisContentPanel.classList.remove('active');
+                }, 400);
+            }
         }
+
         menuToggle.addEventListener('click', toggleMenu);
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link === synopsisTriggerBtn) return; 
+                if (navOverlay.classList.contains('open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        synopsisTriggerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); 
+            menuLinksWrapper.classList.add('hidden');
+            synopsisContentPanel.classList.add('active');
+        });
+
         navOverlay.addEventListener('click', (e) => {
-            if (e.target === navOverlay) toggleMenu();
+            if (e.target === navOverlay || e.target === synopsisContentPanel) {
+                toggleMenu();
+            }
+        });
+
+        synopsisContentPanel.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
 
         // Content Data Assets
@@ -270,63 +488,55 @@
         
         let isProcessingClick = false;
         
-        // State tracking variables for strict alternation and repetition blocking
-        let nextSpeaker = 'demon'; // The layout loads with Hamachi text, so the first click must be Demon
+        // Strict Toggle Sequence Logic Setup
+        let nextSpeaker = 'demon'; 
         let lastHamachiText = "";
         let lastDemonText = "";
 
-        // Initialize with a baseline Hamachi line
+        // Initialize display configuration state
         window.addEventListener('DOMContentLoaded', () => {
             const initialText = hamachiDialogue[Math.floor(Math.random() * hamachiDialogue.length)];
             dialogueEl.textContent = initialText;
             lastHamachiText = initialText;
         });
 
-        // Possession Interaction Mechanics
+        // Alternate Engine Mechanics
         spriteEl.addEventListener('click', () => {
             if (isProcessingClick) return;
             isProcessingClick = true;
 
-            // Clear animation frames safely
             document.body.classList.remove('glitch-flash-hamachi', 'glitch-flash-demon');
-            void document.body.offsetWidth; // Force layout engine execution
+            void document.body.offsetWidth; 
 
             let selectedText = "";
             
-            // Strict Toggle Sequence Logic
             if (nextSpeaker === 'demon') {
-                // Demon Turn Active
                 document.body.classList.add('glitch-flash-demon');
                 dialogueEl.style.color = '#ff3333';
                 spriteEl.src = demonImages[0];
                 
-                // Select a quote that doesn't match the demon's previous line
                 do {
                     selectedText = demonDialogue[Math.floor(Math.random() * demonDialogue.length)];
                 } while (selectedText === lastDemonText);
                 
                 lastDemonText = selectedText;
-                nextSpeaker = 'hamachi'; // Shift state to Hamachi for the next click
+                nextSpeaker = 'hamachi'; 
                 
             } else {
-                // Hamachi Turn Active
                 document.body.classList.add('glitch-flash-hamachi');
                 dialogueEl.style.color = '#dddddd';
                 spriteEl.src = hamachiImages[0];
                 
-                // Select a quote that doesn't match hamachi's previous line
                 do {
                     selectedText = hamachiDialogue[Math.floor(Math.random() * hamachiDialogue.length)];
                 } while (selectedText === lastHamachiText);
                 
                 lastHamachiText = selectedText;
-                nextSpeaker = 'demon'; // Shift state to Demon for the next click
+                nextSpeaker = 'demon'; 
             }
 
-            // Render text element to the screen
             dialogueEl.textContent = selectedText;
 
-            // Release input block after flash clears
             setTimeout(() => {
                 isProcessingClick = false;
             }, 180);
